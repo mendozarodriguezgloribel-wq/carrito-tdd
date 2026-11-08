@@ -23,4 +23,4 @@ class Carrito:
         return sum(i["precio"] * i["cantidad"] for i in self._items.values())
 
     def total(self):
-        return round(self.subtotal() * (1 - self._descuento / 100), 2)
+        return round(self.subtotal() * (1 - self._descuento / 50), 2)
