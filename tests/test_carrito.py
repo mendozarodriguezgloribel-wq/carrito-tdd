@@ -19,3 +19,24 @@ def test_agregar_mismo_producto_suma_cantidad():
 def test_rechaza_valores_invalidos(precio, cantidad):
     with pytest.raises(ValueError):
         Carrito().agregar("X", precio, cantidad)
+
+def test_eliminar_producto():
+    c = Carrito()
+    c.agregar("Teclado", 80)
+    c.eliminar("Teclado")
+    assert c.subtotal() == 0
+
+def test_eliminar_inexistente_lanza_error():
+    with pytest.raises(KeyError):
+        Carrito().eliminar("Fantasma")
+
+def test_descuento_del_10_por_ciento():
+    c = Carrito()
+    c.agregar("Monitor", 200)
+    c.aplicar_descuento(10)
+    assert c.total() == 180
+
+@pytest.mark.parametrize("pct", [-1, 101])
+def test_descuento_invalido(pct):
+    with pytest.raises(ValueError):
+        Carrito().aplicar_descuento(pct)
